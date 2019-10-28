@@ -152,14 +152,6 @@ class Header extends React.PureComponent<Props, State> {
       return options.headerTitle;
     }
 
-    if (options.title && typeof options.title !== 'string' && __DEV__) {
-      throw new Error(
-        `Invalid title for route "${
-          scene.route.routeName
-        }" - title must be string or null, instead it was of type ${typeof options.title}`
-      );
-    }
-
     return options.title;
   }
 
@@ -661,29 +653,6 @@ class Header extends React.PureComponent<Props, State> {
       ...safeHeaderStyle
     } = headerStyleObj;
 
-    if (__DEV__) {
-      warnIfHeaderStyleDefined(alignItems, 'alignItems');
-      warnIfHeaderStyleDefined(justifyContent, 'justifyContent');
-      warnIfHeaderStyleDefined(flex, 'flex');
-      warnIfHeaderStyleDefined(flexDirection, 'flexDirection');
-      warnIfHeaderStyleDefined(flexGrow, 'flexGrow');
-      warnIfHeaderStyleDefined(flexShrink, 'flexShrink');
-      warnIfHeaderStyleDefined(flexBasis, 'flexBasis');
-      warnIfHeaderStyleDefined(flexWrap, 'flexWrap');
-      warnIfHeaderStyleDefined(padding, 'padding');
-      warnIfHeaderStyleDefined(position, 'position');
-      warnIfHeaderStyleDefined(paddingHorizontal, 'paddingHorizontal');
-      warnIfHeaderStyleDefined(paddingRight, 'paddingRight');
-      warnIfHeaderStyleDefined(paddingLeft, 'paddingLeft');
-      // warnIfHeaderStyleDefined(paddingVertical, 'paddingVertical');
-      // warnIfHeaderStyleDefined(paddingTop, 'paddingTop');
-      // warnIfHeaderStyleDefined(paddingBottom, 'paddingBottom');
-      warnIfHeaderStyleDefined(top, 'top');
-      warnIfHeaderStyleDefined(right, 'right');
-      warnIfHeaderStyleDefined(bottom, 'bottom');
-      warnIfHeaderStyleDefined(left, 'left');
-    }
-
     let isDark = this.context === 'dark';
 
     // TODO: warn if any unsafe styles are provided
@@ -728,18 +697,6 @@ class Header extends React.PureComponent<Props, State> {
           <View style={styles.flexOne}>{appBar}</View>
         </SafeAreaView>
       </Animated.View>
-    );
-  }
-}
-
-function warnIfHeaderStyleDefined(value: any, styleProp: string) {
-  if (styleProp === 'position' && value === 'absolute') {
-    console.warn(
-      "position: 'absolute' is not supported on headerStyle. If you would like to render content under the header, use the headerTransparent navigationOption."
-    );
-  } else if (value !== undefined) {
-    console.warn(
-      `${styleProp} was given a value of ${value}, this has no effect on headerStyle.`
     );
   }
 }

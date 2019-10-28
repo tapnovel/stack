@@ -205,12 +205,6 @@ class StackViewLayout extends React.Component<Props, State> {
     const { options } = scene.descriptor;
     const { header } = options;
 
-    if (__DEV__ && typeof header === 'string') {
-      throw new Error(
-        `Invalid header value: "${header}". The header option must be a valid React component or null, not a string.`
-      );
-    }
-
     if (header === null && headerMode === 'screen') {
       return null;
     }
@@ -799,12 +793,6 @@ class StackViewLayout extends React.Component<Props, State> {
         } else if (headerBackgroundTransitionPreset === 'toggle') {
           return HeaderStyleInterpolator.forBackgroundWithInactiveHidden;
         }
-      } else if (__DEV__) {
-        console.error(
-          `Invalid configuration applied for headerBackgroundTransitionPreset - expected one of ${HEADER_BACKGROUND_TRANSITION_PRESET.join(
-            ', '
-          )} but received ${JSON.stringify(headerBackgroundTransitionPreset)}`
-        );
       }
     }
 
@@ -814,27 +802,8 @@ class StackViewLayout extends React.Component<Props, State> {
   private getHeaderLayoutPreset() {
     const { headerLayoutPreset } = this.props;
     if (headerLayoutPreset) {
-      if (__DEV__) {
-        if (
-          this.getHeaderTransitionPreset() === 'uikit' &&
-          headerLayoutPreset === 'left' &&
-          Platform.OS === 'ios'
-        ) {
-          console.warn(
-            `headerTransitionPreset with the value 'uikit' is incompatible with headerLayoutPreset 'left'`
-          );
-        }
-      }
       if (HEADER_LAYOUT_PRESET.includes(headerLayoutPreset)) {
         return headerLayoutPreset;
-      }
-
-      if (__DEV__) {
-        console.error(
-          `Invalid configuration applied for headerLayoutPreset - expected one of ${HEADER_LAYOUT_PRESET.join(
-            ', '
-          )} but received ${JSON.stringify(headerLayoutPreset)}`
-        );
       }
     }
 
@@ -856,14 +825,6 @@ class StackViewLayout extends React.Component<Props, State> {
     if (headerTransitionPreset) {
       if (HEADER_TRANSITION_PRESET.includes(headerTransitionPreset)) {
         return headerTransitionPreset;
-      }
-
-      if (__DEV__) {
-        console.error(
-          `Invalid configuration applied for headerTransitionPreset - expected one of ${HEADER_TRANSITION_PRESET.join(
-            ', '
-          )} but received ${JSON.stringify(headerTransitionPreset)}`
-        );
       }
     }
 
